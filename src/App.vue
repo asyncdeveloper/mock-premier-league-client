@@ -1,32 +1,47 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar-brand href="#">Mock EPL</b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <div v-if="!currentUser" class="navbar-nav ml-auto">
+            <router-link to="/" class="nav-link">Home</router-link>
+            <router-link to="/login" class="nav-link">Login</router-link>
+            <router-link to="/register" class="nav-link">Register</router-link>
+          </div>
+          <div v-if="currentUser" class="navbar-nav ml-auto">
+            <router-link to="/teams" class="nav-link">Teams</router-link>
+            <router-link to="/fixtures" class="nav-link">Fixtures</router-link>
+            <a class="nav-link" href @click.prevent="logOut">
+              LogOut
+            </a>
+          </div>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+
+    <div class="container">
+      <router-view />
     </div>
-    <router-view/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+  export default {
+    computed: {
+      currentUser() {
+        return this.$store.state.auth.user;
+      },
+    },
+    methods: {
+      logOut() {
+        this.$store.dispatch('auth/logout');
+        this.$router.push('/login');
+      }
     }
-  }
-}
-</style>
+  };
+</script>
