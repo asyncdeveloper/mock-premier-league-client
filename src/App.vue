@@ -8,8 +8,8 @@
       <b-collapse id="nav-collapse" is-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
+          <router-link to="/" class="nav-link">Home</router-link>
           <div v-if="!currentUser" class="navbar-nav ml-auto">
-            <router-link to="/" class="nav-link">Home</router-link>
             <router-link to="/login" class="nav-link">Login</router-link>
             <router-link to="/register" class="nav-link">Register</router-link>
           </div>
