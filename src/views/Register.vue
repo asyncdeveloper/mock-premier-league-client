@@ -93,7 +93,6 @@
 
                 if (!isValid) {
                     this.successful = false;
-                    this.message = "Validation failed";
                     return;
                 }
                 try {
@@ -101,8 +100,15 @@
                     this.message = data.message;
                     this.successful = true;
                 } catch (error) {
-                    this.message = error.response.data.errors;
                     this.successful = false;
+                    const errs = error.response.data.errors;
+                    if(typeof errs === 'object') {
+                        for (const myerr in errs ) {
+                            this.message+= `${errs[myerr]} \n`;
+                        }
+                        return;
+                    }
+                    this.message = error.response.data.errors;
                 }
             }
         }
