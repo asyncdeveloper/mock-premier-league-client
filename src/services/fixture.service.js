@@ -20,6 +20,11 @@ class FixtureService {
         return response.data;
     }
 
+    async getFixture(id, token) {
+        const response = await axios.get(API_URL + `/fixtures/${id}`, {headers: { Authorization: 'Bearer ' + token}});
+        return response.data;
+    }
+
 }
 
 export default new FixtureService();

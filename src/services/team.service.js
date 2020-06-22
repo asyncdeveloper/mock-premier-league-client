@@ -20,6 +20,11 @@ class TeamService {
         return response.data;
     }
 
+    async getTeam(id, token) {
+        const response = await axios.get(API_URL + `/teams/${id}`, {headers: { Authorization: 'Bearer ' + token}});
+        return response.data;
+    }
+
 }
 
 export default new TeamService();

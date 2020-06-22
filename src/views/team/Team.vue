@@ -26,6 +26,9 @@
                 <td>{{ team.name }}</td>
                 <td>{{ team.year_founded }}</td>
                 <td>
+                    <router-link v-if="loggedIn" :to="'/teams/' + team.id">
+                        <b-button pill size="sm" variant="info">View</b-button>
+                    </router-link>
                     <b-button
                         v-if="loggedIn"
                         v-on:click="deleteTeam(team.id)"

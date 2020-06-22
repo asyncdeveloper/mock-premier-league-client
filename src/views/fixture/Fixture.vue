@@ -27,7 +27,10 @@
                 <td>{{ fixture.team1.name }}</td>
                 <td>{{ fixture.team2.name }}</td>
                 <td>
-                    <b-button v-if="loggedIn" v-on:click="deleteFixture(fixture.id)" pill  size="sm" variant="danger">Delete </b-button>
+                    <router-link v-if="loggedIn" :to="'/fixtures/' + fixture.id">
+                        <b-button pill size="sm" variant="info">View</b-button>
+                    </router-link>
+                    <b-button v-if="loggedIn" v-on:click="deleteFixture(fixture.id)" pill size="sm" variant="danger">Delete </b-button>
                 </td>
             </tr>
             </tbody>
