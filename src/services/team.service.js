@@ -13,6 +13,13 @@ class TeamService {
         return await axios.delete(API_URL + '/teams/' + id, {headers: { Authorization: 'Bearer ' + token}});
     }
 
+    async createTeam(team, token) {
+        const response = await axios.post(API_URL + '/teams', team,
+            { headers: { Authorization: 'Bearer ' + token }
+        });
+        return response.data;
+    }
+
 }
 
 export default new TeamService();

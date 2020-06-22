@@ -3,8 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Register from "../views/Register";
 import Login from "../views/Login";
-import Teams from "../views/Teams";
-import Fixtures from "../views/Fixtures";
+import Team from "../views/team/Team";
+import Fixture from "../views/fixture/Fixture";
+import TeamCreate from "../views/team/TeamCreate";
 
 Vue.use(VueRouter);
 
@@ -27,12 +28,17 @@ Vue.use(VueRouter);
   {
     path: '/teams',
     name: 'Teams',
-    component: Teams
+    component: Team
+  },
+  {
+    path: '/teams/create',
+    name: 'TeamCreate',
+    component: TeamCreate
   },
   {
     path: '/fixtures',
     name: 'Fixtures',
-    component: Fixtures
+    component: Fixture
   }
 ];
 

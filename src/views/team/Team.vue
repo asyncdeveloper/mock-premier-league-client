@@ -1,5 +1,11 @@
 <template id="user-table">
     <div class="mt-5 mb-5">
+        <div>
+            <router-link v-if="loggedIn" to="/teams/create">
+                <b-button pill variant="primary" >Create a Team</b-button>
+            </router-link>
+
+        </div>
         <div class="form-group">
             <div v-if="error" class="alert alert-danger" role="alert">
                 {{error}}
@@ -15,14 +21,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="fixture in fixtures" :key="fixture.id">
-                <td>{{ fixture.id }}</td>
-                <td>{{ fixture.title }}</td>
-                <td>{{ fixture.match_date }}</td>
-                <td>{{ fixture.team1.name }}</td>
-                <td>{{ fixture.team2.name }}</td>
+            <tr v-for="team in teams" :key="team.id">
+                <td>{{ team.id }}</td>
+                <td>{{ team.name }}</td>
+                <td>{{ team.year_founded }}</td>
                 <td>
-                    <b-button v-on:click="deleteFixture(fixture.id)" pill  size="sm" variant="danger">Delete </b-button>
+                    <b-button
+                        v-if="loggedIn"
+                        v-on:click="deleteTeam(team.id)"
+                        pill  size="sm"
+                        variant="danger">
+                        Delete
+                    </b-button>
                 </td>
             </tr>
             </tbody>
@@ -41,36 +51,41 @@
 </template>
 
 <script>
-    import Pagination from "./Pagination";
-    import FixtureService from '../services/fixture.service';
+    import Pagination from "@/views/Pagination";
+    import TeamService from '@/services/team.service';
 
     export default {
         components: { 'pagination': Pagination },
+        computed: {
+            loggedIn() {
+                return this.$store.state.auth.status.loggedIn;
+            }
+        },
         data() {
             //TODO:: use env for base URL
             return {
-                baseUrl: 'http://localhost:8000/api/fixtures',
+                baseUrl: 'http://localhost:8000/api/teams',
                 page: 1,
                 currentPage: 1,
                 start: 0,
                 end: 0,
                 totalPages: 0,
                 totalData: 0,
-                fixtures: [],
-                userCols: ['id', 'title', 'match date', 'home_team', 'away_team', 'actions'],
+                teams: [],
+                userCols: ['id', 'name', 'year_founded', 'actions'],
                 error: null,
-                message: null
+                message: null,
             };
         },
         methods: {
-            async deleteFixture(id) {
+            async deleteTeam(id) {
                 try {
                     const token = this.$store.state.auth.user.access_token ?? null;
-                    const response = await FixtureService.deleteFixture(id, token);
+                    const response = await TeamService.deleteTeam(id, token);
 
                     if(response.status === 204) {
                         this.message = 'Deleted Successfully';
-                        this.fixtures = this.fixtures.filter( fixture => fixture.id !== id );
+                        this.teams = this.teams.filter( team => team.id !== id );
                     }
                 }catch (err) {
                     if(!err.response) {
@@ -87,11 +102,11 @@
             },
             async getData() {
                 try {
-                    const response = await FixtureService.getAllFixtures(this.page);
+                    const response = await TeamService.getAllTeams(this.page);
                     this.totalPages = response.meta.last_page;
                     this.totalData = response.meta.total;
                     this.currentPage = response.meta.current_page;
-                    this.fixtures = response.data;
+                    this.teams = response.data;
                     this.start = response.meta.from;
                     this.end = response.meta.to;
                 }

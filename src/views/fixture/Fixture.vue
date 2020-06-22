@@ -15,12 +15,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="team in teams" :key="team.id">
-                <td>{{ team.id }}</td>
-                <td>{{ team.name }}</td>
-                <td>{{ team.year_founded }}</td>
+            <tr v-for="fixture in fixtures" :key="fixture.id">
+                <td>{{ fixture.id }}</td>
+                <td>{{ fixture.title }}</td>
+                <td>{{ fixture.match_date }}</td>
+                <td>{{ fixture.team1.name }}</td>
+                <td>{{ fixture.team2.name }}</td>
                 <td>
-                    <b-button v-on:click="deleteTeam(team.id)" pill  size="sm" variant="danger">Delete </b-button>
+                    <b-button v-if="loggedIn" v-on:click="deleteFixture(fixture.id)" pill  size="sm" variant="danger">Delete </b-button>
                 </td>
             </tr>
             </tbody>
@@ -39,36 +41,41 @@
 </template>
 
 <script>
-    import Pagination from "./Pagination";
-    import TeamService from '../services/team.service';
+    import Pagination from "@/views/Pagination";
+    import FixtureService from '@/services/fixture.service';
 
     export default {
         components: { 'pagination': Pagination },
+        computed: {
+            loggedIn() {
+                return this.$store.state.auth.status.loggedIn;
+            }
+        },
         data() {
             //TODO:: use env for base URL
             return {
-                baseUrl: 'http://localhost:8000/api/teams',
+                baseUrl: 'http://localhost:8000/api/fixtures',
                 page: 1,
                 currentPage: 1,
                 start: 0,
                 end: 0,
                 totalPages: 0,
                 totalData: 0,
-                teams: [],
-                userCols: ['id', 'name', 'year_founded', 'actions'],
+                fixtures: [],
+                userCols: ['id', 'title', 'match date', 'home_team', 'away_team', 'actions'],
                 error: null,
                 message: null
             };
         },
         methods: {
-            async deleteTeam(id) {
+            async deleteFixture(id) {
                 try {
                     const token = this.$store.state.auth.user.access_token ?? null;
-                    const response = await TeamService.deleteTeam(id, token);
+                    const response = await FixtureService.deleteFixture(id, token);
 
                     if(response.status === 204) {
                         this.message = 'Deleted Successfully';
-                        this.teams = this.teams.filter( team => team.id !== id );
+                        this.fixtures = this.fixtures.filter( fixture => fixture.id !== id );
                     }
                 }catch (err) {
                     if(!err.response) {
@@ -85,11 +92,11 @@
             },
             async getData() {
                 try {
-                    const response = await TeamService.getAllTeams(this.page);
+                    const response = await FixtureService.getAllFixtures(this.page);
                     this.totalPages = response.meta.last_page;
                     this.totalData = response.meta.total;
                     this.currentPage = response.meta.current_page;
-                    this.teams = response.data;
+                    this.fixtures = response.data;
                     this.start = response.meta.from;
                     this.end = response.meta.to;
                 }
