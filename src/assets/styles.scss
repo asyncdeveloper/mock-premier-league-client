@@ -29,3 +29,59 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+$white: #fff;
+$cornflower-blue: #65a2e9;
+$tropical-blue: #d1e5fa;
+
+.pagination {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+
+  li {
+    display: inline-block;
+    // border: 1px solid #D5D5D5;
+    box-sizing: border-box;
+    margin-left: -1px;
+
+    a {
+      background: $tropical-blue;
+      margin: .25rem;
+      padding: .25rem .5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      position: relative;
+      display: block;
+      color: $cornflower-blue;
+
+      &.active {
+        background: $cornflower-blue;
+        color: $white;
+      }
+    }
+  }
+}
+
+.table-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.avatar {
+  width: 64px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  border-top: 1px solid #dee2e6;
+}
+
+th, td {
+  padding: .5rem;
+}
+
