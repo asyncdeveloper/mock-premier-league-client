@@ -25,6 +25,12 @@ class FixtureService {
         return response.data;
     }
 
+    async updateFixture(id, fixture, token) {
+        const response = await axios.patch(API_URL + `/fixtures/${id}`, fixture,
+            { headers: { Authorization: 'Bearer ' + token }
+            });
+        return response.data;
+    }
 }
 
 export default new FixtureService();

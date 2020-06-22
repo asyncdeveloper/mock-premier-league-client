@@ -25,6 +25,13 @@ class TeamService {
         return response.data;
     }
 
+    async updateTeam(id, team, token) {
+        const response = await axios.patch(API_URL + `/teams/${id}`, team,
+            { headers: { Authorization: 'Bearer ' + token }
+            });
+        return response.data;
+    }
+
 }
 
 export default new TeamService();

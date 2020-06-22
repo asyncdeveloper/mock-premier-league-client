@@ -9,6 +9,8 @@ import TeamCreate from "../views/team/TeamCreate"
 import FixtureCreate from "../views/fixture/FixtureCreate";
 import TeamShow from "../views/team/TeamShow";
 import FixtureShow from "../views/fixture/FixtureShow";
+import TeamEdit from "../views/team/TeamEdit";
+import FixtureEdit from "../views/fixture/FixtureEdit";
 
 Vue.use(VueRouter);
 
@@ -44,6 +46,11 @@ Vue.use(VueRouter);
     component: TeamShow
   },
   {
+    path: '/teams/edit/:id',
+    name: 'TeamEdit',
+    component: TeamEdit
+  },
+  {
     path: '/fixtures',
     name: 'Fixtures',
     component: Fixture
@@ -57,6 +64,11 @@ Vue.use(VueRouter);
     path: '/fixtures/:id',
     name: 'FixtureShow',
     component: FixtureShow
+  },
+  {
+    path: '/fixtures/edit/:id',
+    name: 'FixtureEdit',
+    component: FixtureEdit
   },
 ];
 

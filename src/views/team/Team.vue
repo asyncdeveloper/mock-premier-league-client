@@ -26,8 +26,11 @@
                 <td>{{ team.name }}</td>
                 <td>{{ team.year_founded }}</td>
                 <td>
-                    <router-link v-if="loggedIn" :to="'/teams/' + team.id">
+                    <router-link class="mr-2" v-if="loggedIn" :to="'/teams/' + team.id">
                         <b-button pill size="sm" variant="info">View</b-button>
+                    </router-link>
+                    <router-link class="mr-2" v-if="loggedIn" :to="'/teams/edit/' + team.id">
+                        <b-button pill size="sm" variant="primary">Edit</b-button>
                     </router-link>
                     <b-button
                         v-if="loggedIn"
