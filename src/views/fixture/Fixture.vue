@@ -65,7 +65,7 @@
         data() {
             //TODO:: use env for base URL
             return {
-                baseUrl: 'http://localhost:8000/api/fixtures',
+                baseUrl: `${process.env.VUE_APP_API_URL}/api/fixtures`,
                 page: 1,
                 currentPage: 1,
                 start: 0,

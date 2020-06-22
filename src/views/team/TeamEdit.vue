@@ -85,7 +85,7 @@
 
                 try {
                     const token = this.$store.state.auth.user.access_token ?? null;
-                    const response = await TeamService.updateTeam(this.team, token);
+                    const response = await TeamService.updateTeam(this.teamId,this.team, token);
                     this.successful = true;
                     this.message = response.message;
                 }
