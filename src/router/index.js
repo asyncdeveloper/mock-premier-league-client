@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Register from "../views/Register";
 import Login from "../views/Login";
 import Teams from "../views/Teams";
+import Fixtures from "../views/Fixtures";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ Vue.use(VueRouter);
     path: '/teams',
     name: 'Teams',
     component: Teams
+  },
+  {
+    path: '/fixtures',
+    name: 'Fixtures',
+    component: Fixtures
   }
 ];
 

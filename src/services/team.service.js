@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8000/api';
 
-class UserService {
+class TeamService {
     async getAllTeams(pageNo) {
         const response = await axios.get(API_URL + '/teams?page='+pageNo);
         return response.data;
@@ -15,4 +15,4 @@ class UserService {
 
 }
 
-export default new UserService();
+export default new TeamService();
