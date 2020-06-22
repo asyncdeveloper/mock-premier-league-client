@@ -5,7 +5,8 @@ import Register from "../views/Register";
 import Login from "../views/Login";
 import Team from "../views/team/Team";
 import Fixture from "../views/fixture/Fixture";
-import TeamCreate from "../views/team/TeamCreate";
+import TeamCreate from "../views/team/TeamCreate"
+import FixtureCreate from "../views/fixture/FixtureCreate";
 
 Vue.use(VueRouter);
 
@@ -39,7 +40,12 @@ Vue.use(VueRouter);
     path: '/fixtures',
     name: 'Fixtures',
     component: Fixture
-  }
+  },
+  {
+    path: '/fixtures/create',
+    name: 'FixtureCreate',
+    component: FixtureCreate
+  },
 ];
 
 const router = new VueRouter({

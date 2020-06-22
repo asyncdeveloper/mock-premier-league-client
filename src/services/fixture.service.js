@@ -13,6 +13,13 @@ class FixtureService {
         return await axios.delete(API_URL + '/fixtures/' + id, {headers: { Authorization: 'Bearer ' + token}});
     }
 
+    async createFixture(team, token) {
+        const response = await axios.post(API_URL + '/fixtures', team,
+            { headers: { Authorization: 'Bearer ' + token }
+            });
+        return response.data;
+    }
+
 }
 
 export default new FixtureService();

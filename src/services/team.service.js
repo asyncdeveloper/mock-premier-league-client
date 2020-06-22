@@ -4,8 +4,8 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8000/api';
 
 class TeamService {
-    async getAllTeams(pageNo) {
-        const response = await axios.get(API_URL + '/teams?page='+pageNo);
+    async getAllTeams(pageNo = 1, paginate = 'true') {
+        const response = await axios.get(API_URL + `/teams?paginate=${paginate}&page=`+pageNo);
         return response.data;
     }
 

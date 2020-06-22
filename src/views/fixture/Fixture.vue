@@ -1,5 +1,10 @@
 <template id="user-table">
     <div class="mt-5 mb-5">
+        <div>
+            <router-link v-if="loggedIn" to="/fixtures/create">
+                <b-button pill variant="primary" >Create a Fixture</b-button>
+            </router-link>
+        </div>
         <div class="form-group">
             <div v-if="error" class="alert alert-danger" role="alert">
                 {{error}}
